@@ -246,12 +246,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Presentation Outline")
     _add_bullets(s, [
-        ("Introduction and background", 0),
-        ("Motivation and problem", 0),
-        ("Objectives and scope", 0),
-        ("Proposed methodology", 0),
-        ("Expected results and applications", 0),
-        ("Timeline, budget and references", 0),
+        ("Introduction and Background", 0),
+        ("Motivation and Problem Definition", 0),
+        ("Objectives and Scope", 0),
+        ("Proposed Methodology", 0),
+        ("Expected Results and Applications", 0),
+        ("Timeline, Budget and References", 0),
     ])
     _add_footer(s, page)
 
@@ -260,12 +260,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Introduction")
     _add_bullets(s, [
-        ("Most people in Kathmandu travel by bus", 0),
-        ("Every year many newcomers arrive here", 0),
-        ("But bus routes are not written anywhere", 0),
-        ("So people ask drivers and locals", 0),
-        ("This gets confusing when changing buses", 0),
-        ("A simple digital guide can help", 0),
+        ("Public buses are the primary mode of travel", 0),
+        ("Many newcomers arrive in the valley yearly", 0),
+        ("However, route information remains largely undocumented", 0),
+        ("Passengers often depend on drivers and locals", 0),
+        ("Planning a trip with transfers is difficult", 0),
+        ("A structured digital system can help", 0),
     ])
     _add_footer(s, page)
 
@@ -274,12 +274,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Motivation")
     _add_bullets(s, [
-        ("We have all faced this problem ourselves", 0),
-        ("You know the place but not the bus", 0),
-        ("Where do I get on the bus?", 0),
-        ("Do I need to change buses?", 0),
-        ("How much fare and how long?", 0),
-        ("We wanted to solve this clearly", 0),
+        ("Newcomers face real difficulty using buses", 0),
+        ("Identifying the correct boarding point is hard", 0),
+        ("Knowing whether a transfer is required", 0),
+        ("Fare and travel time remain uncertain", 0),
+        ("Existing tools lack local transit guidance", 0),
+        ("This motivates a dedicated solution", 0),
     ])
     _add_footer(s, page)
 
@@ -288,12 +288,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Problem Definition")
     _add_bullets(s, [
-        ("No single place lists local bus routes", 0),
-        ("Map apps show roads, not bus guidance", 0),
-        ("Newcomers struggle to plan their trip", 0),
-        ("Finding transfer points is really hard", 0),
-        ("We need a system that tells", 1),
-        ("which bus, where to board, where to change", 1),
+        ("No centralized digital bus route system exists", 0),
+        ("Map tools show roads, not transit guidance", 0),
+        ("Informal routes are poorly standardized", 0),
+        ("Newcomers cannot plan trips reliably", 0),
+        ("The system must recommend a suitable route", 0),
+        ("including boarding and transfer locations", 1),
     ])
     _add_footer(s, page)
 
@@ -302,12 +302,11 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Objectives")
     _add_bullets(s, [
-        ("Build a simple web app for bus routes", 0),
-        ("Help users travel across Kathmandu Valley", 0),
-        ("Suggest the best route from A to B", 0),
-        ("To do this, we combine", 1),
-        ("spatial search and the Haversine formula", 1),
-        ("Dijkstra's algorithm and a scoring system", 1),
+        ("To develop a web-based recommendation system", 0),
+        ("To serve public transit in Kathmandu Valley", 0),
+        ("To recommend the most suitable bus route", 0),
+        ("using spatial indexing and the Haversine formula", 1),
+        ("using Dijkstra's algorithm and a scoring system", 1),
     ])
     _add_footer(s, page)
 
@@ -317,11 +316,11 @@ def build():
     _add_title(s, "Scope of Project")
     _add_bullets(s, [
         ("Covers Kathmandu, Lalitpur and Bhaktapur", 0),
-        ("We start with selected bus routes", 0),
-        ("Built on a clean route dataset", 0),
-        ("We do not track live traffic", 0),
-        ("Helpful for commuters, students and tourists", 0),
-        ("Also useful for urban mobility research", 0),
+        ("Focuses initially on selected bus routes", 0),
+        ("Based on a structured route dataset", 0),
+        ("Does not include real-time traffic monitoring", 0),
+        ("Serves commuters, students and tourists", 0),
+        ("Also supports urban mobility research", 0),
     ])
     _add_footer(s, page)
 
@@ -339,12 +338,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Methodology: Working Principle")
     _add_bullets(s, [
-        ("The user types their start and end", 0),
-        ("We quickly find nearby bus stops", 0),
-        ("The dataset gives us the routes", 0),
-        ("We treat each stop as a node", 0),
-        ("Dijkstra then finds the best path", 0),
-        ("Finally we score and pick the route", 0),
+        ("The user provides source and destination", 0),
+        ("Spatial indexing identifies nearby bus stops", 0),
+        ("The dataset returns relevant route information", 0),
+        ("Bus stops are modeled as graph nodes", 0),
+        ("Dijkstra's algorithm computes the optimal route", 0),
+        ("A scoring system ranks the final route", 0),
     ])
     _add_footer(s, page)
 
@@ -360,14 +359,14 @@ def build():
     # ---------------- SLIDE 11 : METHODOLOGY - INSTRUMENTATION ----------------
     page += 1
     s = _blank_slide(prs)
-    _add_title(s, "Methodology: Tools We Will Use")
+    _add_title(s, "Methodology: Instrumentation")
     _add_bullets(s, [
-        ("Frontend with React.js and Leaflet.js", 0),
-        ("Backend with FastAPI and Python", 0),
-        ("Maps come from OpenStreetMap", 0),
+        ("Frontend developed using React.js and Leaflet.js", 0),
+        ("Backend built with FastAPI and Python", 0),
+        ("Map services provided by OpenStreetMap", 0),
         ("Data stored in SQLite, PostgreSQL or JSON", 0),
-        ("We code in Visual Studio Code", 0),
-        ("Runs on a normal laptop with internet", 0),
+        ("Development carried out in Visual Studio Code", 0),
+        ("Requires a standard laptop with internet", 0),
     ])
     _add_footer(s, page)
 
@@ -376,12 +375,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Expected Results")
     _add_bullets(s, [
-        ("Suggest direct routes when one bus works", 0),
-        ("Suggest transfer routes when needed", 0),
-        ("Tell the user where to board", 0),
-        ("Show clearly where to change buses", 0),
-        ("Point out the right stop to leave", 0),
-        ("Draw the whole route on a map", 0),
+        ("Recommendation of direct bus routes", 0),
+        ("Recommendation of transfer-based routes", 0),
+        ("Clear display of boarding points", 0),
+        ("Clear display of transfer points", 0),
+        ("Identification of the destination stop", 0),
+        ("Route visualization on an interactive map", 0),
     ])
     _add_footer(s, page)
 
@@ -390,12 +389,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Expected Results (Contd.)")
     _add_bullets(s, [
-        ("Give a rough idea of the fare", 0),
-        ("Estimate how long the trip takes", 0),
-        ("Keep the interface simple and clean", 0),
-        ("Build a tidy dataset of routes", 0),
-        ("Make travel easier for newcomers", 0),
-        ("Put transit info in one place", 0),
+        ("Approximate fare estimation", 0),
+        ("Approximate travel time estimation", 0),
+        ("A simple and user-friendly interface", 0),
+        ("A structured dataset of selected routes", 0),
+        ("Improved travel experience for newcomers", 0),
+        ("Centralized access to transit information", 0),
     ])
     _add_footer(s, page)
 
@@ -404,12 +403,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Project Applications")
     _add_bullets(s, [
-        ("Daily commuters moving around the valley", 0),
-        ("Students heading to their colleges", 0),
-        ("Tourists exploring Kathmandu Valley", 0),
-        ("Newcomers who do not know routes", 0),
+        ("Daily commuters within Kathmandu Valley", 0),
+        ("Students travelling to their colleges", 0),
+        ("Tourists exploring the valley", 0),
+        ("Newcomers unfamiliar with bus routes", 0),
         ("Researchers studying urban mobility", 0),
-        ("A base for future transit apps", 0),
+        ("A foundation for future transit applications", 0),
     ])
     _add_footer(s, page)
 
