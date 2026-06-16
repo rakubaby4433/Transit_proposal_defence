@@ -246,58 +246,86 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Presentation Outline")
     _add_bullets(s, [
-        ("Motivation", 0),
-        ("Objectives", 0),
-        ("Scope of Project", 0),
-        ("Proposed Methodology", 0),
-        ("Expected Results and Applications", 0),
-        ("Timeline, Budget and References", 0),
+        ("Introduction and background", 0),
+        ("Motivation and problem", 0),
+        ("Objectives and scope", 0),
+        ("Proposed methodology", 0),
+        ("Expected results and applications", 0),
+        ("Timeline, budget and references", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 3 : MOTIVATION ----------------
+    # ---------------- SLIDE 3 : INTRODUCTION ----------------
+    page += 1
+    s = _blank_slide(prs)
+    _add_title(s, "Introduction")
+    _add_bullets(s, [
+        ("Most people in Kathmandu travel by bus", 0),
+        ("Every year many newcomers arrive here", 0),
+        ("But bus routes are not written anywhere", 0),
+        ("So people ask drivers and locals", 0),
+        ("This gets confusing when changing buses", 0),
+        ("A simple digital guide can help", 0),
+    ])
+    _add_footer(s, page)
+
+    # ---------------- SLIDE 4 : MOTIVATION ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Motivation")
     _add_bullets(s, [
-        ("High dependency on public transport", 0),
-        ("Bus routes informal and undocumented", 0),
-        ("Newcomers struggle to find buses", 0),
-        ("Confusion over boarding and transfers", 0),
-        ("Fare and travel time unknown", 0),
-        ("Need a structured digital solution", 0),
+        ("We have all faced this problem ourselves", 0),
+        ("You know the place but not the bus", 0),
+        ("Where do I get on the bus?", 0),
+        ("Do I need to change buses?", 0),
+        ("How much fare and how long?", 0),
+        ("We wanted to solve this clearly", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 4 : OBJECTIVES ----------------
+    # ---------------- SLIDE 5 : PROBLEM DEFINITION ----------------
+    page += 1
+    s = _blank_slide(prs)
+    _add_title(s, "Problem Definition")
+    _add_bullets(s, [
+        ("No single place lists local bus routes", 0),
+        ("Map apps show roads, not bus guidance", 0),
+        ("Newcomers struggle to plan their trip", 0),
+        ("Finding transfer points is really hard", 0),
+        ("We need a system that tells", 1),
+        ("which bus, where to board, where to change", 1),
+    ])
+    _add_footer(s, page)
+
+    # ---------------- SLIDE 6 : OBJECTIVES ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Objectives")
     _add_bullets(s, [
-        ("Develop web-based route recommendation system", 0),
-        ("Target Kathmandu Valley public transit", 0),
-        ("Recommend most suitable bus route", 0),
-        ("Apply spatial indexing for stops", 1),
-        ("Use Haversine formula for distance", 1),
-        ("Use Dijkstra and scoring system", 1),
+        ("Build a simple web app for bus routes", 0),
+        ("Help users travel across Kathmandu Valley", 0),
+        ("Suggest the best route from A to B", 0),
+        ("To do this, we combine", 1),
+        ("spatial search and the Haversine formula", 1),
+        ("Dijkstra's algorithm and a scoring system", 1),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 5 : SCOPE OF PROJECT ----------------
+    # ---------------- SLIDE 7 : SCOPE OF PROJECT ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Scope of Project")
     _add_bullets(s, [
-        ("Covers Kathmandu, Lalitpur, Bhaktapur", 0),
-        ("Focuses on selected bus routes", 0),
-        ("Uses structured route dataset", 0),
-        ("No real-time traffic monitoring", 0),
-        ("Serves commuters, students, tourists", 0),
-        ("Useful for urban mobility research", 0),
+        ("Covers Kathmandu, Lalitpur and Bhaktapur", 0),
+        ("We start with selected bus routes", 0),
+        ("Built on a clean route dataset", 0),
+        ("We do not track live traffic", 0),
+        ("Helpful for commuters, students and tourists", 0),
+        ("Also useful for urban mobility research", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 6 : METHODOLOGY - SYSTEM ARCHITECTURE ----------------
+    # ---------------- SLIDE 8 : METHODOLOGY - SYSTEM ARCHITECTURE ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Methodology: System Architecture")
@@ -306,21 +334,21 @@ def build():
         "[ Insert Block Diagram here ]\n\nUser Input  ->  Spatial Search  ->  Route Dataset\n->  Route Computation  ->  Output Visualization")
     _add_footer(s, page)
 
-    # ---------------- SLIDE 7 : METHODOLOGY - WORKING PRINCIPLE ----------------
+    # ---------------- SLIDE 9 : METHODOLOGY - WORKING PRINCIPLE ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Methodology: Working Principle")
     _add_bullets(s, [
-        ("User enters source and destination", 0),
-        ("Spatial index finds nearby stops", 0),
-        ("Dataset returns stop and routes", 0),
-        ("Stops modeled as graph nodes", 0),
-        ("Dijkstra computes least-cost route", 0),
-        ("Scoring ranks the final route", 0),
+        ("The user types their start and end", 0),
+        ("We quickly find nearby bus stops", 0),
+        ("The dataset gives us the routes", 0),
+        ("We treat each stop as a node", 0),
+        ("Dijkstra then finds the best path", 0),
+        ("Finally we score and pick the route", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 8 : METHODOLOGY - ALGORITHM & FLOWCHART ----------------
+    # ---------------- SLIDE 10 : METHODOLOGY - ALGORITHM & FLOWCHART ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Methodology: Algorithm & Flowchart")
@@ -329,63 +357,63 @@ def build():
         "[ Insert Flowchart here ]\n\nInput -> Validate -> Spatial Search -> Haversine\n-> Build Graph -> Dijkstra -> Score -> Display")
     _add_footer(s, page)
 
-    # ---------------- SLIDE 9 : METHODOLOGY - INSTRUMENTATION ----------------
+    # ---------------- SLIDE 11 : METHODOLOGY - INSTRUMENTATION ----------------
     page += 1
     s = _blank_slide(prs)
-    _add_title(s, "Methodology: Instrumentation")
+    _add_title(s, "Methodology: Tools We Will Use")
     _add_bullets(s, [
-        ("Frontend: React.js and Leaflet.js", 0),
-        ("Backend: FastAPI and Python", 0),
-        ("Maps: OpenStreetMap tile service", 0),
-        ("Database: SQLite / PostgreSQL / JSON", 0),
-        ("Editor: Visual Studio Code", 0),
-        ("Hardware: standard laptop, internet", 0),
+        ("Frontend with React.js and Leaflet.js", 0),
+        ("Backend with FastAPI and Python", 0),
+        ("Maps come from OpenStreetMap", 0),
+        ("Data stored in SQLite, PostgreSQL or JSON", 0),
+        ("We code in Visual Studio Code", 0),
+        ("Runs on a normal laptop with internet", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 10 : EXPECTED RESULTS (1) ----------------
+    # ---------------- SLIDE 12 : EXPECTED RESULTS (1) ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Expected Results")
     _add_bullets(s, [
-        ("Recommendation of direct bus routes", 0),
-        ("Recommendation of transfer-based routes", 0),
-        ("Display of boarding points", 0),
-        ("Display of transfer points", 0),
-        ("Clear destination stop guidance", 0),
-        ("Route shown on interactive map", 0),
+        ("Suggest direct routes when one bus works", 0),
+        ("Suggest transfer routes when needed", 0),
+        ("Tell the user where to board", 0),
+        ("Show clearly where to change buses", 0),
+        ("Point out the right stop to leave", 0),
+        ("Draw the whole route on a map", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 11 : EXPECTED RESULTS (2) ----------------
+    # ---------------- SLIDE 13 : EXPECTED RESULTS (2) ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Expected Results (Contd.)")
     _add_bullets(s, [
-        ("Approximate fare calculation", 0),
-        ("Approximate travel time estimation", 0),
-        ("Simple user-friendly web interface", 0),
-        ("Structured dataset for selected routes", 0),
-        ("Reduced confusion for newcomers", 0),
-        ("Better access to transit information", 0),
+        ("Give a rough idea of the fare", 0),
+        ("Estimate how long the trip takes", 0),
+        ("Keep the interface simple and clean", 0),
+        ("Build a tidy dataset of routes", 0),
+        ("Make travel easier for newcomers", 0),
+        ("Put transit info in one place", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 12 : PROJECT APPLICATIONS ----------------
+    # ---------------- SLIDE 14 : PROJECT APPLICATIONS ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Project Applications")
     _add_bullets(s, [
-        ("Daily commuters within the valley", 0),
-        ("Students travelling to colleges", 0),
+        ("Daily commuters moving around the valley", 0),
+        ("Students heading to their colleges", 0),
         ("Tourists exploring Kathmandu Valley", 0),
-        ("Newcomers unfamiliar with routes", 0),
+        ("Newcomers who do not know routes", 0),
         ("Researchers studying urban mobility", 0),
-        ("Basis for future transit apps", 0),
+        ("A base for future transit apps", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 13 : TENTATIVE TIMELINE (GANTT) ----------------
+    # ---------------- SLIDE 15 : TENTATIVE TIMELINE (GANTT) ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Tentative Timeline (Gantt Chart)")
@@ -394,7 +422,7 @@ def build():
         "[ Insert Gantt Chart here ]\n\nProposal -> Data Collection -> Design\n-> Implementation -> Testing -> Documentation")
     _add_footer(s, page)
 
-    # ---------------- SLIDE 14 : ESTIMATED BUDGET (table) ----------------
+    # ---------------- SLIDE 16 : ESTIMATED BUDGET (table) ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Estimated Project Budget")
@@ -423,7 +451,7 @@ def build():
     r.font.name = FONT; r.font.size = Pt(28); r.font.bold = True; r.font.color.rgb = BLACK
     _add_footer(s, page)
 
-    # ---------------- SLIDE 15 : REFERENCES (1) ----------------
+    # ---------------- SLIDE 17 : REFERENCES (1) ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "References")
@@ -443,7 +471,7 @@ def build():
         r.font.name = FONT; r.font.size = Pt(20); r.font.color.rgb = BLACK
     _add_footer(s, page)
 
-    # ---------------- SLIDE 16 : REFERENCES (2) ----------------
+    # ---------------- SLIDE 18 : REFERENCES (2) ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "References (Contd.)")
@@ -463,7 +491,7 @@ def build():
         r.font.name = FONT; r.font.size = Pt(20); r.font.color.rgb = BLACK
     _add_footer(s, page)
 
-    # ---------------- SLIDE 17 : THANK YOU ----------------
+    # ---------------- SLIDE 19 : THANK YOU ----------------
     page += 1
     s = _blank_slide(prs)
     box = s.shapes.add_textbox(Inches(0.5), Inches(2.8), Inches(9.0), Inches(1.5))
