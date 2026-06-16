@@ -7,6 +7,12 @@ Group: THA080BCT006 / 012 / 022 / 030  |  Supervisor: Er. Anup Shrestha
 Builds a .pptx that follows the IOE Thapathali "Slide Design Guidelines"
 (Dinesh Baniya Kshatri, 2020) and the 12-minute Proposal Defense order.
 
+Updated to reflect the A* search proposal:
+  * Core algorithm: A* search with admissible Haversine heuristic
+  * Composite edge cost: w = alpha*d + beta*t + gamma*k
+  * Budget: NPR 2,200
+  * A* reference (Hart, Nilsson & Raphael, 1968) added
+
 Design rules enforced:
   * White background, black text on every slide
   * No animations
@@ -246,8 +252,8 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Presentation Outline")
     _add_bullets(s, [
-        ("Introduction and Background", 0),
-        ("Motivation and Problem Definition", 0),
+        ("Introduction", 0),
+        ("Motivation", 0),
         ("Objectives and Scope", 0),
         ("Proposed Methodology", 0),
         ("Expected Results and Applications", 0),
@@ -260,12 +266,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Introduction")
     _add_bullets(s, [
-        ("Public buses are the primary mode of travel", 0),
-        ("Many newcomers arrive in the valley yearly", 0),
-        ("However, route information remains largely undocumented", 0),
-        ("Passengers often depend on drivers and locals", 0),
-        ("Planning a trip with transfers is difficult", 0),
-        ("A structured digital system can help", 0),
+        ("Public buses are heavily used in the valley", 0),
+        ("However, route information remains informal and fragmented", 0),
+        ("Routes are rarely available in digital form", 0),
+        ("Stops can be modeled as graph nodes", 0),
+        ("Route connections become weighted graph edges", 0),
+        ("Finding a journey becomes a routing problem", 0),
     ])
     _add_footer(s, page)
 
@@ -278,82 +284,83 @@ def build():
         ("Identifying the correct boarding point is hard", 0),
         ("Knowing whether a transfer is required", 0),
         ("Fare and travel time remain uncertain", 0),
-        ("Existing tools lack local transit guidance", 0),
-        ("This motivates a dedicated solution", 0),
+        ("Distance alone ignores transfers and walking", 0),
+        ("This motivates a multi-criteria solution", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 5 : PROBLEM DEFINITION ----------------
-    page += 1
-    s = _blank_slide(prs)
-    _add_title(s, "Problem Definition")
-    _add_bullets(s, [
-        ("No centralized digital bus route system exists", 0),
-        ("Map tools show roads, not transit guidance", 0),
-        ("Informal routes are poorly standardized", 0),
-        ("Newcomers cannot plan trips reliably", 0),
-        ("The system must recommend a suitable route", 0),
-        ("including boarding and transfer locations", 1),
-    ])
-    _add_footer(s, page)
-
-    # ---------------- SLIDE 6 : OBJECTIVES ----------------
+    # ---------------- SLIDE 5 : OBJECTIVES ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Objectives")
     _add_bullets(s, [
         ("To develop a web-based recommendation system", 0),
-        ("To serve public transit in Kathmandu Valley", 0),
-        ("To recommend the most suitable bus route", 0),
-        ("using spatial indexing and the Haversine formula", 1),
-        ("using Dijkstra's algorithm and a scoring system", 1),
+        ("To model the bus network as a weighted graph", 0),
+        ("To compute optimal routes using A* search", 0),
+        ("using an admissible Haversine heuristic", 1),
+        ("using a composite distance-transfer-walking cost", 1),
+        ("To show boarding, transfer and alighting points", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 7 : SCOPE OF PROJECT ----------------
+    # ---------------- SLIDE 6 : SCOPE OF PROJECT ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Scope of Project")
     _add_bullets(s, [
         ("Covers Kathmandu, Lalitpur and Bhaktapur", 0),
-        ("Focuses initially on selected bus routes", 0),
-        ("Based on a structured route dataset", 0),
-        ("Does not include real-time traffic monitoring", 0),
+        ("Focuses on selected major bus routes", 0),
+        ("Uses a structured static route dataset", 0),
+        ("No real-time traffic or GPS tracking", 0),
+        ("Fare and travel time are approximate", 0),
         ("Serves commuters, students and tourists", 0),
-        ("Also supports urban mobility research", 0),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 8 : METHODOLOGY - SYSTEM ARCHITECTURE ----------------
+    # ---------------- SLIDE 7 : METHODOLOGY - SYSTEM ARCHITECTURE ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Methodology: System Architecture")
     _maybe_image_or_placeholder(
         s, "block_diagram.png",
-        "[ Insert Block Diagram here ]\n\nUser Input  ->  Spatial Search  ->  Route Dataset\n->  Route Computation  ->  Output Visualization")
+        "[ Insert Block Diagram (Fig 4-1) here ]\n\nUser  ->  Frontend (React + Leaflet)\n->  Backend API (FastAPI)\n->  Nearest-Stop Lookup  ->  Graph Builder  ->  A* Search\n(Route Dataset feeds lookup and graph)")
     _add_footer(s, page)
 
-    # ---------------- SLIDE 9 : METHODOLOGY - WORKING PRINCIPLE ----------------
+    # ---------------- SLIDE 8 : METHODOLOGY - GRAPH MODEL & COST ----------------
     page += 1
     s = _blank_slide(prs)
-    _add_title(s, "Methodology: Working Principle")
+    _add_title(s, "Methodology: Graph Model & Cost")
     _add_bullets(s, [
-        ("The user provides source and destination", 0),
-        ("Spatial indexing identifies nearby bus stops", 0),
-        ("The dataset returns relevant route information", 0),
-        ("Bus stops are modeled as graph nodes", 0),
-        ("Dijkstra's algorithm computes the optimal route", 0),
-        ("A scoring system ranks the final route", 0),
+        ("Each bus stop is a graph node", 0),
+        ("Each connection is a weighted edge", 0),
+        ("Edge cost:  w = alpha*d + beta*t + gamma*k", 0),
+        ("d = distance, t = transfer, k = walking", 1),
+        ("Higher beta avoids transfers", 1),
+        ("Higher gamma reduces walking distance", 1),
     ])
     _add_footer(s, page)
 
-    # ---------------- SLIDE 10 : METHODOLOGY - ALGORITHM & FLOWCHART ----------------
+    # ---------------- SLIDE 9 : METHODOLOGY - A* SEARCH ----------------
     page += 1
     s = _blank_slide(prs)
-    _add_title(s, "Methodology: Algorithm & Flowchart")
+    _add_title(s, "Methodology: A* Search Algorithm")
+    _add_bullets(s, [
+        ("A* evaluates nodes using  f(n) = g(n) + h(n)", 0),
+        ("g(n) is the actual cost from start", 1),
+        ("h(n) is the Haversine distance to goal", 1),
+        ("The heuristic never overestimates, so it is admissible", 0),
+        ("This guarantees an optimal route", 0),
+        ("A* expands fewer nodes than Dijkstra", 0),
+    ])
+    _add_footer(s, page)
+
+    # ---------------- SLIDE 10 : METHODOLOGY - ALGORITHM FLOWCHART ----------------
+    page += 1
+    s = _blank_slide(prs)
+    _add_title(s, "Methodology: Algorithm Flowchart")
     _maybe_image_or_placeholder(
         s, "flowchart.png",
-        "[ Insert Flowchart here ]\n\nInput -> Validate -> Spatial Search -> Haversine\n-> Build Graph -> Dijkstra -> Score -> Display")
+        "[ Insert Flowchart (Fig 4-3) here ]\n\nQuery -> Validate -> Spatial Index + Haversine\n-> Build Weighted Graph -> A* Search\n-> Estimate Fare & Time -> Display on Map")
     _add_footer(s, page)
 
     # ---------------- SLIDE 11 : METHODOLOGY - INSTRUMENTATION ----------------
@@ -361,12 +368,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Methodology: Instrumentation")
     _add_bullets(s, [
-        ("Frontend developed using React.js and Leaflet.js", 0),
-        ("Backend built with FastAPI and Python", 0),
-        ("Map services provided by OpenStreetMap", 0),
-        ("Data stored in SQLite, PostgreSQL or JSON", 0),
-        ("Development carried out in Visual Studio Code", 0),
-        ("Requires a standard laptop with internet", 0),
+        ("Frontend using React.js and Leaflet.js", 0),
+        ("Backend using Python and FastAPI", 0),
+        ("Map services from OpenStreetMap", 0),
+        ("Spatial index for nearest-stop lookup", 0),
+        ("Dataset stored as JSON or SQLite", 0),
+        ("Developed in Visual Studio Code", 0),
     ])
     _add_footer(s, page)
 
@@ -375,12 +382,12 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "Expected Results")
     _add_bullets(s, [
-        ("Recommendation of direct bus routes", 0),
-        ("Recommendation of transfer-based routes", 0),
-        ("Clear display of boarding points", 0),
-        ("Clear display of transfer points", 0),
-        ("Identification of the destination stop", 0),
-        ("Route visualization on an interactive map", 0),
+        ("A structured Kathmandu Valley route dataset", 0),
+        ("Optimal routing using A* search", 0),
+        ("Recommendation of direct and transfer routes", 0),
+        ("Clear boarding, transfer and alighting points", 0),
+        ("Route shown on an interactive map", 0),
+        ("Also presented as a textual step list", 0),
     ])
     _add_footer(s, page)
 
@@ -392,7 +399,7 @@ def build():
         ("Approximate fare estimation", 0),
         ("Approximate travel time estimation", 0),
         ("A simple and user-friendly interface", 0),
-        ("A structured dataset of selected routes", 0),
+        ("Efficient nearest-stop lookup via spatial index", 0),
         ("Improved travel experience for newcomers", 0),
         ("Centralized access to transit information", 0),
     ])
@@ -418,15 +425,15 @@ def build():
     _add_title(s, "Tentative Timeline (Gantt Chart)")
     _maybe_image_or_placeholder(
         s, "gantt.png",
-        "[ Insert Gantt Chart here ]\n\nProposal -> Data Collection -> Design\n-> Implementation -> Testing -> Documentation")
+        "[ Insert Gantt Chart (Fig 6-1) here ]\n\nRequirement Study -> Data Collection -> Graph & Algorithm\n-> Frontend & Map Integration -> Testing -> Documentation")
     _add_footer(s, page)
 
     # ---------------- SLIDE 16 : ESTIMATED BUDGET (table) ----------------
     page += 1
     s = _blank_slide(prs)
     _add_title(s, "Estimated Project Budget")
-    rows, cols = 5, 2
-    tbl_w = Inches(7.0); tbl_h = Inches(3.2)
+    rows, cols = 4, 2
+    tbl_w = Inches(7.0); tbl_h = Inches(2.6)
     left = Inches(1.5); top = Inches(2.0)
     table = s.shapes.add_table(rows, cols, left, top, tbl_w, tbl_h).table
     table.columns[0].width = Inches(4.6)
@@ -435,19 +442,23 @@ def build():
     _style_cell(table.cell(0, 0), "Item", bold=True, size=24, align=PP_ALIGN.LEFT, fill=HEADER_FILL)
     _style_cell(table.cell(0, 1), "Estimated Cost (NPR)", bold=True, size=24, align=PP_ALIGN.CENTER, fill=HEADER_FILL)
     data = [
-        ("Internet / data collection", "500"),
-        ("Software tools", "0"),
-        ("Printing / documentation", "700"),
+        ("Internet / data collection", "1,000"),
+        ("Documentation", "700"),
         ("Miscellaneous", "500"),
     ]
     for i, (item, cost) in enumerate(data, start=1):
         _style_cell(table.cell(i, 0), item, bold=False, size=24, align=PP_ALIGN.LEFT)
         _style_cell(table.cell(i, 1), cost, bold=False, size=24, align=PP_ALIGN.CENTER)
-    # total row styled bold via a 6th row -> instead append note
-    total_box = s.shapes.add_textbox(Inches(1.5), Inches(5.4), Inches(7.0), Inches(0.6))
+    # total note
+    total_box = s.shapes.add_textbox(Inches(1.5), Inches(4.9), Inches(7.0), Inches(0.6))
     p = total_box.text_frame.paragraphs[0]; p.alignment = PP_ALIGN.RIGHT
-    r = p.add_run(); r.text = "Total:  NPR 1700"
+    r = p.add_run(); r.text = "Total:  NPR 2,200"
     r.font.name = FONT; r.font.size = Pt(28); r.font.bold = True; r.font.color.rgb = BLACK
+    # note about open-source
+    note_box = s.shapes.add_textbox(Inches(1.5), Inches(5.6), Inches(7.0), Inches(0.8))
+    p = note_box.text_frame.paragraphs[0]; p.alignment = PP_ALIGN.LEFT
+    r = p.add_run(); r.text = "All software and map tiles are free and open-source."
+    r.font.name = FONT; r.font.size = Pt(20); r.font.bold = False; r.font.color.rgb = BLACK
     _add_footer(s, page)
 
     # ---------------- SLIDE 17 : REFERENCES (1) ----------------
@@ -455,11 +466,11 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "References")
     refs1 = [
-        "[1] E. W. Dijkstra, A note on two problems in connexion with graphs, Numerische Mathematik, vol. 1, pp. 269-271, 1959.",
-        "[2] T. H. Cormen et al., Introduction to Algorithms, 3rd ed. MIT Press, 2009.",
-        "[3] M. A. Rahman et al., Shortest path algorithms in transportation networks: A survey, IJCA, vol. 181, no. 14, 2018.",
-        "[4] S. Zhang et al., A survey of route recommendations, J. Transp. Tech., vol. 12, no. 3, 2022.",
-        "[5] Q. Shi et al., Evaluation model of bus route optimization, IEEE ITSC, 2020.",
+        "[1] E. W. Dijkstra, \u201cA note on two problems in connexion with graphs,\u201d Numerische Mathematik, vol. 1, pp. 269-271, 1959.",
+        "[2] P. E. Hart, N. J. Nilsson and B. Raphael, \u201cA formal basis for the heuristic determination of minimum cost paths,\u201d IEEE Trans. SSC, vol. 4, no. 2, pp. 100-107, 1968.",
+        "[3] T. H. Cormen et al., Introduction to Algorithms, 3rd ed. MIT Press, 2009.",
+        "[4] M. A. Rahman et al., \u201cShortest path algorithms in transportation networks: A survey,\u201d IJCA, vol. 181, no. 14, 2018.",
+        "[5] S. Zhang et al., \u201cA survey of route recommendations,\u201d J. Transp. Tech., vol. 12, no. 3, 2022.",
     ]
     box = s.shapes.add_textbox(Inches(0.6), Inches(1.6), Inches(8.8), Inches(5.0))
     tf = box.text_frame; tf.word_wrap = True
@@ -467,7 +478,7 @@ def build():
         p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
         p.alignment = PP_ALIGN.LEFT; p.space_after = Pt(10)
         r = p.add_run(); r.text = ref
-        r.font.name = FONT; r.font.size = Pt(20); r.font.color.rgb = BLACK
+        r.font.name = FONT; r.font.size = Pt(18); r.font.color.rgb = BLACK
     _add_footer(s, page)
 
     # ---------------- SLIDE 18 : REFERENCES (2) ----------------
@@ -475,11 +486,11 @@ def build():
     s = _blank_slide(prs)
     _add_title(s, "References (Contd.)")
     refs2 = [
-        "[6] OpenStreetMap. [Online]. Available: https://www.openstreetmap.org/",
-        "[7] Leaflet: An open-source JavaScript library. [Online]. Available: https://leafletjs.com/",
-        "[8] Google Maps. [Online]. Available: https://www.google.com/maps",
-        "[9] Moovit transit app. [Online]. Available: https://moovitapp.com/",
-        "[10] MobilityData, GTFS Reference. [Online]. Available: https://gtfs.org/",
+        "[6] MobilityData, GTFS Reference. [Online]. Available: https://gtfs.org/",
+        "[7] OpenStreetMap. [Online]. Available: https://www.openstreetmap.org/",
+        "[8] V. Agafonkin, Leaflet: An open-source JavaScript library. [Online]. Available: https://leafletjs.com/",
+        "[9] Google Maps. [Online]. Available: https://www.google.com/maps",
+        "[10] Moovit transit app. [Online]. Available: https://moovitapp.com/",
     ]
     box = s.shapes.add_textbox(Inches(0.6), Inches(1.6), Inches(8.8), Inches(5.0))
     tf = box.text_frame; tf.word_wrap = True
@@ -487,7 +498,7 @@ def build():
         p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
         p.alignment = PP_ALIGN.LEFT; p.space_after = Pt(10)
         r = p.add_run(); r.text = ref
-        r.font.name = FONT; r.font.size = Pt(20); r.font.color.rgb = BLACK
+        r.font.name = FONT; r.font.size = Pt(18); r.font.color.rgb = BLACK
     _add_footer(s, page)
 
     # ---------------- SLIDE 19 : THANK YOU ----------------
